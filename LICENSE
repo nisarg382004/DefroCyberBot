@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+
+
+### Summary of Steps
+
+1. **Create/Edit Files**: Use VS Code to create and edit the above files in the root directory of your project.
+2. **Commit and Push**: Add these files to your GitHub repository with the following commands:
+   ```bash
+   git add install.sh install.bat setup.sh setup.bat README.md requirements.txt
+   git commit -m "Add essential installation and setup scripts"
+   git push
+
