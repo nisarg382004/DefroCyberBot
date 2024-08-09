@@ -1,6 +1,3 @@
-Got it! Here’s a complete GitHub page manual without the file contents, focusing on setup and usage instructions:
-
----
 
 # DefroCyberBot GitHub Page Manual
 
