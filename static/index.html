@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DefroCyberBot Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        body {
+            background: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #00f260, #0575e6);
+            padding: 100px 20px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin: 0;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .header p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            animation: fadeIn 3s ease-out 1s;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff4081;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s;
+            animation: fadeIn 3s ease-out 2s;
+        }
+
+        .btn-primary:hover {
+            background: #e60073;
+        }
+
+        .features {
+            padding: 50px 20px;
+            background: #1c1c1c;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #ff4081;
+            animation: slideIn 1s ease-out;
+        }
+
+        .feature-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            background: #2c2c2c;
+            padding: 20px;
+            margin: 10px;
+            width: 30%;
+            min-width: 250px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 0, 122, 0.5);
+            transition: transform 0.3s;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-item h3 {
+            color: #ff4081;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .about {
+            padding: 50px 20px;
+            background: #222a35;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #ff4081;
+            animation: slideIn 1s ease-out;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .footer {
+            background: #1c1c1c;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .footer a {
+            color: #ff4081;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #e60073;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Welcome to DefroCyberBot</h1>
+        <p>Your advanced cyber security bot for enhanced protection.</p>
+        <a href="#features" class="btn-primary">Explore Features</a>
+    </header>
+
+    <section id="features" class="features">
+        <h2>Features</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <h3>Real-time Threat Detection</h3>
+                <p>Protect your system with real-time monitoring and alerts for immediate response to threats.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Honeypot Integration</h3>
+                <p>Deceive and capture malicious actors with our integrated honeypot feature to gather intelligence.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Cross-Platform Support</h3>
+                <p>Available on both Linux and Windows, ensuring flexibility for deployment in diverse environments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About DefroCyberBot</h2>
+        <p>DefroCyberBot is an advanced cyber security bot designed to provide comprehensive protection for your systems. Leveraging real-time threat detection and honeypot technology, it offers robust defense mechanisms to counteract malicious activities. Our bot is adaptable to various platforms, including both Linux and Windows, ensuring seamless integration into your existing infrastructure.</p>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 DefroCyberBot. All rights reserved.</p>
+        <a href="https://github.com/nisarg382004/DefroCyberBot" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+    </footer>
+</body>
+
+</html>
