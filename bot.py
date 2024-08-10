@@ -1,27 +1,25 @@
-from flask import Flask, request, jsonify
-import os
+from flask import Flask, send_from_directory
+import threading
+import time
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
-@app.route('/bot', methods=['POST'])
-def bot():
-    try:
-        user_input = request.json.get('input')
-        if user_input:
-            response = f"You said: {user_input}"
-        else:
-            response = "No input provided."
-        return jsonify({'response': response})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+@app.route('/')
+def index():
+    return send_from_directory('static', 'index.html')
 
-@app.route('/honeypot', methods=['GET'])
-def honeypot():
-    return jsonify({'message': 'This is a honeypot endpoint'}), 403
+def start_flask_server():
+    app.run(host='0.0.0.0', port=5000)
 
-if __name__ == '__main__':
-    try:
-        port = int(os.environ.get("PORT", 5000))
-        app.run(host='0.0.0.0', port=port)
-    except Exception as e:
-        print(f"An error occurred: {e}")
+def start_bot():
+    # Your bot's functionality
+    print("Bot is starting...")
+    # Simulate bot work
+    time.sleep(10)  # Replace with actual bot work
+
+if __name__ == "__main__":
+    # Start the Flask server in a separate thread
+    threading.Thread(target=start_flask_server).start()
+    
+    # Start the bot
+    start_bot()
