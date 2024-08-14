@@ -1,102 +1,146 @@
-import asyncio
-import aiohttp
+import sys
+import os
 import requests
-from bs4 import BeautifulSoup
-import spacy
+import json
+import psutil
+import whois
+import shodan
+import matplotlib.pyplot as plt
+import socket
+import platform
+import openai
 
-# Load the NLP model for better command recognition
-nlp = spacy.load('en_core_web_sm')
+# Replace 'your-api-key-here' with your actual OpenAI API key
+openai.api_key = 'Your API KEY'
 
-def fetch_data_from_web(query):
-    # Example of web scraping from a sample website
-    url = f"https://www.example.com/search?q={query}"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    return soup.find('div', class_='result').text
-
-async def fetch_data_from_api(query):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f"https://api.example.com/data?q={query}") as response:
-            return await response.json()
-
-async def process_query(query):
-    # Choose between web scraping or API based on query type
-    if "web" in query.lower():
-        return fetch_data_from_web(query)
-    else:
-        return await fetch_data_from_api(query)
-
-def process_command(command):
-    doc = nlp(command)
-    if '--temperature' in command:
-        return "Adjusting randomness of the output."
-    elif '--top-probablity' in command:
-        return "Limiting to the highest probable tokens."
-    elif '--chat' in command:
-        return "Starting a conversation with a unique name."
-    elif '--shell' in command:
-        return "Preparing shell commands output."
-    elif '--execute' in command:
-        return "Executing commands from the --shell option."
-    elif '--code' in command:
-        return "Generating code output."
-    elif 'help' in command:
-        return start_tutorial()
-    elif 'weather' in command:
-        return fetch_weather_data(doc)
-    elif 'search' in command:
-        return advanced_search(command)
-    elif 'api list' in command:
-        return api_list_overview()
-    else:
-        return "Unknown command. Type 'help' for a list of commands."
-
-def start_tutorial():
-    return (
-        "Tutorial:\n"
-        "1. Type 'help' to see the list of available commands.\n"
-        "2. Use 'weather [location]' to get weather information.\n"
-        "3. Use 'search [query]' for advanced search functionality.\n"
-        "4. Use 'api list' to get an overview of the available API commands.\n"
-        "5. Use 'download [resource]' to download resources.\n"
-        "6. Use '--temperature', '--top-probablity', '--chat', '--shell', '--execute', and '--code' for advanced features.\n"
+def get_openai_response(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",  # or "gpt-3.5-turbo" if you don't have access to GPT-4
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=150
     )
+    return response.choices[0].message['content'].strip()
 
-def advanced_search(query):
-    # Simulated advanced search
-    return "Performing an advanced search..."
+def show_help():
+    print("Available commands:")
+    print("  search <query>          - Searches for the specified query.")
+    print("  help                    - Displays this help message.")
+    print("  status                  - Displays system status.")
+    print("  resources               - Lists available resources.")
+    print("  plot <data>             - Plots data using matplotlib.")
+    print("  record <audio_file>     - Records audio from the microphone.")
+    print("  execute <command>       - Executes a shell command.")
+    print("  code <language> <code>  - Executes code in the specified language.")
+    print("  exit                    - Exits the program.")
+    print("  chat <prompt>           - Gets a response from OpenAI's API.")
 
-def api_list_overview():
-    return (
-        "API List - Overview\n"
-        "1. Analog I/O\n"
-        "2. Communication\n"
-        "3. Digital I/O\n"
-        "4. Infrared Object Detection\n"
-        "5. Timed I/O\n"
-        "6. Servo Control\n"
-        "7. feedback360 module\n"
-        "8. drive class\n"
-        "9. group_io module\n"
-        "10. i2c_repeat module\n"
-        "11. ping module\n"
-        "12. qti module\n"
-        "13. shift module\n"
-        "14. tv_remote module\n"
-        "For detailed usage of each API, type 'api [API name]'."
-    )
+def search(query):
+    """
+    Placeholder for search functionality.
+    """
+    print(f"Searching for '{query}' on Instagram...")
+    # Simulated response
+    print("Advanced search functionality not yet implemented.")
 
-async def interactive_mode():
+def show_status():
+    print("System Status:")
+    print(f"  OS: {platform.system()} {platform.release()}")
+    print(f"  CPU: {psutil.cpu_percent()}%")
+    print(f"  Memory: {psutil.virtual_memory().percent}%")
+    print(f"  Disk: {psutil.disk_usage('/').percent}%")
+
+def list_resources():
+    print("Available resources:")
+    # Add code to list available resources
+
+def plot_data(data):
+    """
+    Plots data using matplotlib.
+    """
+    try:
+        data = json.loads(data)
+        plt.plot(data)
+        plt.xlabel('Index')
+        plt.ylabel('Value')
+        plt.title('Data Plot')
+        plt.show()
+    except json.JSONDecodeError:
+        print("Invalid data format. Please provide valid JSON data.")
+
+def record_audio(audio_file):
+    """
+    Records audio from the microphone.
+    """
+    # Placeholder implementation
+    print(f"Recording audio to {audio_file} (Feature not implemented yet).")
+
+def execute_command(command):
+    """
+    Executes a shell command.
+    """
+    try:
+        output = os.popen(command).read()
+        print(output)
+    except Exception as e:
+        print(f"Error executing command: {e}")
+
+def execute_code(language, code):
+    """
+    Executes code in the specified language.
+    """
+    # Placeholder implementation
+    print(f"Executing {language} code...")
+    print(code)
+
+def handle_command(command):
+    """
+    Handles different commands input by the user.
+    """
+    if command.startswith("search "):
+        query = command[len("search "):]
+        search(query)
+    elif command == "help":
+        show_help()
+    elif command == "status":
+        show_status()
+    elif command == "resources":
+        list_resources()
+    elif command.startswith("plot "):
+        data = command[len("plot "):]
+        plot_data(data)
+    elif command.startswith("record "):
+        audio_file = command[len("record "):]
+        record_audio(audio_file)
+    elif command.startswith("execute "):
+        shell_command = command[len("execute "):]
+        execute_command(shell_command)
+    elif command.startswith("code "):
+        parts = command[len("code "):].split(' ', 1)
+        if len(parts) == 2:
+            language, code = parts
+            execute_code(language, code)
+        else:
+            print("Invalid code command format.")
+    elif command.startswith("chat "):
+        prompt = command[len("chat "):]
+        response = get_openai_response(prompt)
+        print("OpenAI Response:", response)
+    elif command == "exit":
+        sys.exit()
+    else:
+        print("Unknown command. Type 'help' for a list of commands.")
+
+def main():
+    """
+    Main function to run the command loop.
+    """
     while True:
-        try:
-            command = input("Enter command: ")
-            if command.lower() == 'exit':
-                print("Exiting interactive mode.")
-                break
-            response = await process_query(command)
-            print(response)
-        except Exception as e:
-            print(f"Error: {e}")
+        command = input("Enter command: ")
+        handle_command(command)
+        print()  # For better readability
 
-# Start the interactive terminal with asyncio
-asyncio.run(interactive_mode())
+if __name__ == "__main__":
+    main()
